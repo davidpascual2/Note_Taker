@@ -3,18 +3,24 @@ const path = require('path')
 const fs = require('fs');
 const { get } = require('http');
 
-const apiRouter = require('/routes/')
+const apiRouter = require('./routes/apiRouter');
+const htmlRouter = require('./routes/htmlRouter');
 
 const app = express();
 
 //set port
-const PORT = process.env.port || 3001; //????
+const PORT = process.env.PORT || 3001; //????
 
 //middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 app.use(express.static('public'));
+
+app.use("/", htmlRouter);
+app.use('/api', apiRouter);
+
+
 
 //request
 // app.get('/', (req,res) => {   //show homepage
@@ -41,5 +47,5 @@ app.use(express.static('public'));
 // });
 
 app.listen(PORT,() => 
-console.log(`App listening at https://localhost:${PORT} `)
+console.log(`App listening at https://localhost:${PORT}`)
 );
