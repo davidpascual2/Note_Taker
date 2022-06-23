@@ -4,6 +4,8 @@ const notes = require('../db/db.json');
 const path = require('path');
 const { randomUUID } = require('crypto');
 
+var db = require('../db/db.json')
+
 router.get('/notes', (req, res) => {
     console.info(`${req.method} request received`);
     res.json(notes)
@@ -32,7 +34,7 @@ router.post('/notes', (req, res) => {
     console.log(response);
     res.status(201).json(response);
     db.push(newNote);
-    fs.writeFile('/db/db.json', JSON.stringify(db), (err) => {
+    fs.writeFile('./db/db.json', JSON.stringify(db), (err) => {
         if (err) { console.log(err);}
      else { console.log('Success!')}
     });
